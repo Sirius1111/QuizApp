@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import classes from './Auth.css'
 import Button from '../../components/Ui/Button/Button'
-import Input from "../../components/Ui/Input/Input";
+import Input from '../../components/Ui/Input/Input';
+import axios from 'axios'
 export default class Auth extends Component {
 
     state = {
@@ -61,7 +62,6 @@ export default class Auth extends Component {
     }
     
     onChangeHandler = (e, contr) => {
-        console.log(`${contr} : `, e.target.value);
 
         const formControls = {...this.state.formControls}
         const control = {...formControls[contr]}
@@ -101,11 +101,36 @@ export default class Auth extends Component {
             )
         })
     }
-    LoginHandler = () => {
-
+    LoginHandler = async () => {
+        const authData = {
+            email:  this.state.formControls.email.value,
+            password:  this.state.formControls.password.value,
+            returnSecureToken: true
+        }
+        try {
+            const response = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAoAnCptHi4eAfk3ogUNxQBuoajek4Xlrs',authData)
+            
+            console.log(response);
+            
+        } catch (error) {
+            console.log(error);   
+        }
     }
-    registerHandler = () => {
+    registerHandler = async () => {
+        const authData = {
+            email:  this.state.formControls.email.value,
+            password:  this.state.formControls.password.value,
+            returnSecureToken: true
+        }
+        try {
+            const response = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAoAnCptHi4eAfk3ogUNxQBuoajek4Xlrs',authData)
+            
 
+            console.log(response);
+            
+        } catch (error) {
+            console.log(error);   
+        }
     }
     submitHandler = (e) => {
         e.preventDefault();
